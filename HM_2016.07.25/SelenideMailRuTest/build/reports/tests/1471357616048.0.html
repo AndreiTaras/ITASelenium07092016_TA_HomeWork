@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+        <meta content="IE=8" http-equiv="X-UA-Compatible" />
+        <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+        <script type="text/javascript">
+            window.wa_ts1 = +new Date();
+
+            function parseGet () {
+                var request = {};
+                var params = (''+document.location).match(/[^?#]+/g);
+                params.shift();
+                params.join('&amp;').replace(/([^&amp;=]+)=([^&amp;]+)/g, function (nope, key, value) {
+                    value = decodeURIComponent(value);
+                    request[key] = value;
+                });
+                return request;
+            }
+
+            function parseTmpl () {
+                var args = Array.prototype.slice.call(arguments, 0);
+                var format = args.shift();
+                return format.replace(/\{(\d+)\}/g, function (ignored, i) {
+                    return args[i];
+                });
+            }
+
+            function stripAll (str) {
+                return (str || '').replace(/[^a-z0-9-]+/g, '');
+            }
+
+            function stripPath (str) {
+                return (str || '').replace(/[^a-z0-9-\/]+/g, '');
+            }
+
+            
+            (function () {
+                var get = parseGet();
+                
+                var subdomain = 'img', domain = 'imgs';
+                if ( get.server == 'localhost' &amp;&amp; get.branch == 'webagent' ) {
+                    subdomain = get.branch;
+                    domain = 'localhost.';
+                }
+
+                var url = parseTmpl(
+                    '//{0}.{1}mail.ru/{2}/rpc.js?{3}',
+                    subdomain,
+                    domain,
+                    stripPath(get.path || 'webim/agent/build'),
+                    stripAll(get.build || '')
+                );
+
+                document.write('&lt;scr' + 'ipt type="text/javascript" src="' + url + '"&gt;&lt;/scr' + 'ipt&gt;');
+            })();
+
+        </script><script src="//img.imgsmail.ru/webim/agent/release/477/rpc.js?" type="text/javascript"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+
+            var WebAgentRpc = new easyXDM.Rpc({}, {
+
+                local: {
+
+                    invoke: function (options, successFn, errorFn) {
+                        return WebAgent.rpc.Remote.invoke(WebAgentRpc, options, successFn, errorFn);
+                    }
+
+                },
+
+                remote: {
+
+                    invoke: {}
+
+                }
+
+            });
+
+        </script>
+    
+
+
+</body></html>
