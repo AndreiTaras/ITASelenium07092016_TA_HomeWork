@@ -1,0 +1,11 @@
+ShoppingTests.class
+SignUpForNewsletterTests.class
+AddNewAddressTests.class
+ContactTests.class
+WeatherTest.class
+DeleteItemFromCartTests.class
+LoginWithoutPasswordTests.class
+SearchTests.class
+RegisterTests.class
+AssertPersonalInformationTests.class
+CatalogTests.class
